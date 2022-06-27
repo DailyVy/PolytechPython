@@ -2,6 +2,7 @@
 import pandas as pd
 import numpy as np
 import seaborn as sns # dataset load 용도
+import matplotlib.pyplot as plt
 
 pd.set_option("display.max_columns", None)
 
@@ -10,6 +11,7 @@ titanic = sns.load_dataset("titanic")
 
 # 모든 행과 5개의 열을 가지고 와서 dataframe 생성
 df = titanic.loc[:, ['age', 'sex', 'class', 'fare', 'survived']]
+# df["count"] = 1
 print(f'승객 수 : {len(df)}')
 print(df.head())
 
@@ -75,6 +77,11 @@ Third  female  21.750000   16.118810  0.500000
 """
 # todo. 이거 그래프로 나타내봅시다 :)
 
+# average_two["survived"].plot(kind="bar", figsize=(10, 8))
+# plt.title("Survived rate according to Class and Sex")
+# plt.show()
+
+
 print("===========================개별 그룹 선택하기 (튜플형태로 입력)========================")
 # 개별 그룹 선택 (first or second class 선택 등등)
 # 멀티인덱스 형태로 되어있는 그룹에서 개별 그룹을 가지고 오고 싶을 때
@@ -88,7 +95,7 @@ print("=====================filtering===========================")
 # e.g. 나이 평균이 30보다 작은 그룹만을 filtering해서 df 로 반환
 average = grouped.mean()
 print(average)
-
+print()
 # 평균 나이가 30미만인 그룹(클래스)는 second, third 그룹
 age_filter = grouped.filter(lambda x : x.age.mean() < 30)
-print(age_filter)
+print(age_filter) # qna. 이거.. filter된거 맞아..??? 아닌거 같은데..? index4를 보면 class third인데 age 35.0 이 나오고 있는데?

@@ -1,16 +1,16 @@
 import pandas as pd
 # as : alias name 약자 (pandas.DataFrame.. 사용을 해야하는데 alias name을 쓰게 되면 pd.DataFrame 이런식으로 가능)
 # 참고로 numpy는 np로 많이 사용
-# import numpy as np
+import numpy as np
 
 # # pandas의 Series는 Dictionary 타입을 인자로 가짐 (리스트도 되긴 하지만...)
 # # dictionary type 의 정의
-# dict_data = {'a':1, 'b':2, 'c':3}
-#
-# sr_dict = pd.Series(dict_data)
-# print(sr_dict)
-# print(type(sr_dict))
-# print('\n')
+dict_data = {'a':1, 'b':2, 'c':3}
+
+sr_dict = pd.Series(dict_data)
+print(sr_dict)
+print(type(sr_dict))
+print('\n')
 #
 # # 리스트를 인자로 넣어보자!!
 # list_data = ['2022-03-22', 3.1415926535, 'ABC', 100, True]

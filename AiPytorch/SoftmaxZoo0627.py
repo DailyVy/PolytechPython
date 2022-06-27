@@ -90,3 +90,23 @@ for epoch in range(nb_epochs + 1):
     if epoch % 100 == 0:
         print(f'Epoch {epoch:4d} / {nb_epochs}\t, cost {cost.item():.6f}')
 
+# prediction
+hx = F.softmax(x_test_new.matmul(w) + b, dim=1)
+# hxNumpy = hx.numpy()
+arr = np.array(hx.tolist()) # 리스트로 만들고 numpy배열로
+y_pred = [i.argmax() for i in arr]
+# y_pred = [i.argmax() for i in hxNumpy]
+# y_pred = [i.argmax() for i in hx]
+print(y_pred)
+y_GT = [i.argmax() for i in y_testArr]
+print(y_GT) # 이게 GT 값
+
+# accuracy 구해보자
+accuracySum = 0
+
+for i in range(len(y_GT)):
+    if y_pred[i] == y_GT[i]:
+        accuracySum += 1
+
+accuracy = (accuracySum / len(y_GT)) * 100
+print(accuracy)

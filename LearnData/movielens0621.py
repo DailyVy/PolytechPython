@@ -158,7 +158,7 @@ print(f'{len(df_join_movies2)}\n{df_join_movies2}')
 print(rating_df[(rating_df.movieId == 356) & (rating_df.rating <= 2.0)])
 # qna. 왜 and, or로 쓰면 안될까? ==> 비트연산자만 사용가능하더라... &랑 |
 #  왠지는 모르겠는지 버전문제일 수도 있고.. ^^ 뭔가 꼬여서 그랬나봄
-#  JSON annotation 할 때 'or'로 적용안됐던 이유가 이건가봐
+#  JSON annotation 할 때 'or'로 적용안됐던 이유가 이건가봐 ==> 근데 얜 |로 해도 안돼..
 
 print()
 # movieId가 356이거나 2571번인 영화정보
@@ -201,4 +201,4 @@ movie_df_index = movies_df.set_index("movieId")
 extract_movies_df = movie_df_index[["title", "genres"]].loc[movie_ids]
 print(extract_movies_df.head(10))
 
-# check 한 번 해보세요.여기는 멀쩡한데?
+# check 한 번 해보세요.

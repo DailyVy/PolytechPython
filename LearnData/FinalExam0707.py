@@ -28,8 +28,8 @@ poke_sort_800 = poke_sort.iloc[400:800, :]
 # print(poke_sort_800["Name"][poke_sort_800.Legendary == True].count()) # 4
 
 # 1번 답. 위 값의 차이
-# print(poke_sort_400["Name"][poke_sort_400.Legendary == True].count()
-#       - poke_sort_800["Name"][poke_sort_800.Legendary == True].count())
+print(poke_sort_400["Name"][poke_sort_400.Legendary == True].count()
+      - poke_sort_800["Name"][poke_sort_800.Legendary == True].count())
 
 ########################################################################################################
 
@@ -42,7 +42,7 @@ FAM = pokeFire.Attack.mean() # Fire 포켓몬들의 Attack 평균
 # print(pokeWater)
 
 # 2번 답
-# print(len(pokeWater[pokeWater["Attack"] >= FAM])) # 37
+print(len(pokeWater[pokeWater["Attack"] >= FAM])) # 37
 
 ########################################################################################################
 
@@ -63,7 +63,7 @@ bank = pd.read_csv("./Data/bank/bank.csv", sep=";")
 bank["age10"] = bank["age"] // 10
 # print(bank.head())
 # 3번 답. 가장 많은 인원을 가진 "나이대와 인원수"
-# print(bank.age10.value_counts()) # 3, 1808
+print(bank.age10.value_counts()) # 3, 1808
 
 ########################################################################################################
 
@@ -77,7 +77,7 @@ bank2529 = bank[(bank.age >= 25) & (bank.age < 29)]
 
 # 4번 답
 bank2529yes = bank2529[bank2529["housing"] == "yes"]
-# print(len(bank2529yes)) # 187
+print(len(bank2529yes)) # 187
 
 ########################################################################################################
 
@@ -88,8 +88,9 @@ bank2529yes = bank2529[bank2529["housing"] == "yes"]
 # print(bank.info()) # job, marital, education, default, housing, loan, contact, month, poutcome, y
 # print(bank.head(10))
 
-bankNoNum = bank.drop(columns=["age", "balance", "day", "duration", "campaign", "pdays", "previous"], axis=1)
-# print(bankNoNum.info())
+# bankNoNum = bank.drop(columns=["age", "balance", "day", "duration", "campaign", "pdays", "previous"], axis=1)
+bankNoNum = bank.select_dtypes(exclude="number")
+print(bankNoNum.info())
 
 # print(bankNoNum.columns) # column명
 
@@ -103,7 +104,7 @@ for col in bankNoNum.columns:
         uniqueCol = col
 
 # 5번 답
-# print(uniqueCol, uniqueCount)
+print(uniqueCol, uniqueCount)
 
 ########################################################################################################
 
@@ -125,20 +126,27 @@ bankOverBalMean = bankOverBalMean.sort_index(ascending=False)
 bankOverBalMean100 = bankOverBalMean.iloc[:100, :]
 
 # 6번 답.
-# print(bankOverBalMean100.balance.mean())
+print(bankOverBalMean100.balance.mean())
 
 ########################################################################################################
 
 # 7. 가장 많이 마케팅(전화)을 집행했던 날짜는 언제인가? (데이터 그대로 일(숫자), 달(영문)으로 표기)
 
-bankGroup = bank.groupby(["day", "month"])
+
+# bankCall = bank[bank["contact"] != "unknown"] # cellular, telephone
+bankCall = bank[bank["contact"] == "telephone"] # telephone
+print(bankCall["contact"].value_counts())
+
+bankCallGroup = bankCall.groupby(["day", "month"])
+
+# print(bank.head(30))
 
 # print(bankGroup.head())
 
 theDay = ""
 maxCall = 0
 
-for key, group in bankGroup:
+for key, group in bankCallGroup:
     # print("**key : ", key)
     # print("**number : ", len(group))
     if maxCall <= len(group):
@@ -147,15 +155,15 @@ for key, group in bankGroup:
     # print()
 
 # 7번 답
-print(theDay, maxCall) # (15, 'may') 114
+print(theDay, maxCall) #
 
 ########################################################################################################
 
 # 8번, 9번 답???
 ageBalCorr = bank[["age", "balance"]].corr()
-# print(ageBalCorr)
-# sns.heatmap(ageBalCorr, cmap="RdBu_r", annot=True, fmt=".5f")
-# plt.show()
+print(ageBalCorr)
+sns.heatmap(ageBalCorr, cmap="RdBu_r", annot=True, fmt=".5f")
+plt.show()
 
 ########################################################################################################
 
@@ -174,7 +182,7 @@ strokeAgeAvg = stroke.groupby("gender").age.mean()
 
 # print(strokeAgeAvg)
 # 10번 답
-# print(round(strokeAgeAvg["Male"], 3))
+print(round(strokeAgeAvg["Male"], 3))
 
 ########################################################################################################
 
@@ -191,7 +199,7 @@ stroke["bmi2"] = stroke["bmi"].fillna(bmiAge)
 
 # bmi컬럼의 평균 구하기
 # 11번 답
-# print(round(stroke.bmi2.mean(), 3))
+print(round(stroke.bmi2.mean(), 3))
 
 
 ########################################################################################################
@@ -243,4 +251,4 @@ stroke["bmi3"] = stroke["bmi"].fillna(newStroke["bmi_y"])
 
 # 이제 우리가 원하는 대체된 bmi 컬럼 ==> bmi3 의 평균을 구합시다
 # 12번 답
-# print(round(stroke.bmi3.mean(), 3))
+print(round(stroke.bmi3.mean(), 3))
